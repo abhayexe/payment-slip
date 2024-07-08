@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Slip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .slip-container {
+            background-color: #f5f3b7;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+            padding: 20px;
+            width: 300px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .slip-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .slip-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .slip-content p {
+            margin: 5px 0;
+        }
+        .slip-content span {
+            font-weight: bold;
+        }
+        .slip-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="slip-container">
+        <div class="slip-header">
+            <h1>Payment Slip</h1>
+        </div>
+        <img id="profile-pic" class="profile-pic" src="" alt="" style="display: none;">
+        <div class="slip-content">
+            <p>Name: <span id="name">blank</span></p>
+            <p>Description: <span id="description">blank</span></p>
+            <p>Quantity: <span id="quantity">blank</span></p>
+            <p>Unit Price: <span id="unit-price">blank</span></p>
+            <p>Total: <span id="total">blank</span></p>
+        </div>
+        <div class="slip-footer">
+            <p>Thank you for your purchase!</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to parse query parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get('name') || 'blank',
+                description: params.get('description') || 'blank',
+                quantity: params.get('quantity') || 'blank',
+                unit_price: params.get('unit_price') || 'blank',
+                total: params.get('total') || 'blank'
+            };
+        }
+
+        // Function to set the profile picture based on the name
+        function setProfilePicture(name) {
+            const profilePic = document.getElementById('profile-pic');
+            const normalizedName = name.toLowerCase();
+            if (normalizedName === 'abhay sharma') {
+                profilePic.src = 'person1.jpg';
+            } else if (normalizedName === 'monish bharali') {
+                profilePic.src = 'person2.jpg';
+            } else if (normalizedName === 'arnab kumar das') {
+                profilePic.src = 'person3.jpg';
+            } else {
+                profilePic.style.display = 'none';
+                return;
+            }
+            profilePic.alt = name;
+            profilePic.style.display = 'block';
+        }
+
+        // Extract the query parameters
+        const queryParams = getQueryParams();
+
+        // Update the HTML elements with the extracted information
+        document.getElementById('name').textContent = queryParams.name;
+        document.getElementById('description').textContent = queryParams.description;
+        document.getElementById('quantity').textContent = queryParams.quantity;
+        document.getElementById('unit-price').textContent = queryParams.unit_price;
+        document.getElementById('total').textContent = queryParams.total;
+
+        // Set the profile picture based on the name
+        setProfilePicture(queryParams.name);
+    </script>
+</body>
+</html>
